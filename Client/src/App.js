@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import './App.css';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
@@ -26,7 +27,7 @@ function AppContent() {
   if (loading) {
     return (
       <div style={styles.loading}>
-        <div>Loading HRMS Lite...</div>
+        <div>Loading EMS Lite...</div>
       </div>
     );
   }
@@ -89,23 +90,24 @@ function AppContent() {
 const styles = {
   app: {
     minHeight: '100vh',
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    background: 'var(--bg-primary)',
+    fontFamily: 'var(--font-family)',
   },
   loading: {
     height: '100vh',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    color: 'white',
-    fontSize: '1.5rem',
-    fontFamily: 'Arial, sans-serif',
+    background: 'var(--bg-primary)',
+    color: 'var(--text-primary)',
+    fontSize: 'var(--font-size-xl)',
+    fontWeight: 'var(--font-weight-medium)',
   },
   mainWithNavbar: {
-    paddingTop: '0',
+    paddingTop: 'var(--space-16)',
   },
   mainWithoutNavbar: {
-    paddingTop: '0',
+    paddingTop: 'var(--space-8)',
   },
 };
 

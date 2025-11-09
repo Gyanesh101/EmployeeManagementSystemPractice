@@ -1,243 +1,332 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import AdminOnly from '../components/AdminOnly';
+import '../components/dashboard.css';
+import {
+  FaUsers,
+  FaBuilding,
+  FaCalendarCheck,
+  FaUserCheck,
+  FaPlus,
+  FaEye,
+  FaCog,
+  FaBell,
+  FaClock,
+  FaCheckCircle,
+  FaExclamationTriangle,
+  FaChartLine,
+  FaUserPlus,
+  FaCalendarAlt
+} from 'react-icons/fa';
 
 const Dashboard = () => {
   const { user } = useAuth();
+  const [isLoading, setIsLoading] = useState(true);
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  useEffect(() => {
+    // Simulate loading time for better UX
+    const timer = setTimeout(() => setIsLoading(false), 1500);
+
+    // Update time every minute
+    const timeInterval = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 60000);
+
+    return () => {
+      clearTimeout(timer);
+      clearInterval(timeInterval);
+    };
+  }, []);
+
+  if (!user) {
+    return (
+      <div className="dashboard-container">
+        <div className="loading-skeleton">
+          <div className="skeleton-header"></div>
+          <div className="skeleton-grid">
+            <div className="skeleton-card"></div>
+            <div className="skeleton-card"></div>
+            <div className="skeleton-card"></div>
+            <div className="skeleton-card"></div>
+          </div>
+          <div className="skeleton-content"></div>
+        </div>
+      </div>
+    );
+  }
+
+  const quickActions = [
+    {
+      icon: <FaUserPlus />,
+      title: 'Add Employee',
+      description: 'Register new team member',
+      color: 'var(--gradient-primary)',
+      action: () => console.log('Add Employee')
+    },
+    {
+      icon: <FaCalendarAlt />,
+      title: 'Mark Attendance',
+      description: 'Record daily attendance',
+      color: 'var(--gradient-secondary)',
+      action: () => console.log('Mark Attendance')
+    },
+    {
+      icon: <FaEye />,
+      title: 'View Reports',
+      description: 'Check analytics & insights',
+      color: 'linear-gradient(135deg, #ff6b6b, #ee5a24)',
+      action: () => console.log('View Reports')
+    },
+    {
+      icon: <FaCog />,
+      title: 'Settings',
+      description: 'Configure preferences',
+      color: 'linear-gradient(135deg, #a8edea, #fed6e3)',
+      action: () => console.log('Settings')
+    }
+  ];
+
+  const recentActivities = [
+    {
+      icon: <FaCheckCircle />,
+      title: 'Attendance marked',
+      description: 'John Doe checked in at 9:00 AM',
+      time: '2 hours ago',
+      type: 'success'
+    },
+    {
+      icon: <FaUserPlus />,
+      title: 'New employee added',
+      description: 'Sarah Wilson joined Marketing department',
+      time: '4 hours ago',
+      type: 'info'
+    },
+    {
+      icon: <FaExclamationTriangle />,
+      title: 'System maintenance',
+      description: 'Scheduled maintenance completed successfully',
+      time: '1 day ago',
+      type: 'warning'
+    }
+  ];
 
   return (
-    <div style={styles.container}>
-      <div style={styles.header}>
-        <h1 style={styles.title}>Dashboard</h1>
-        <p style={styles.subtitle}>Welcome back, {user?.name}! 👋</p>
-      </div>
-
-      <div style={styles.stats}>
-        <div style={styles.statCard}>
-          <div style={styles.statIcon}>👥</div>
-          <h3 style={styles.statNumber}>1</h3>
-          <p style={styles.statLabel}>Total Employees</p>
-        </div>
-        <div style={styles.statCard}>
-          <div style={styles.statIcon}>🏢</div>
-          <h3 style={styles.statNumber}>0</h3>
-          <p style={styles.statLabel}>Departments</p>
-        </div>
-        <div style={styles.statCard}>
-          <div style={styles.statIcon}>📊</div>
-          <h3 style={styles.statNumber}>0</h3>
-          <p style={styles.statLabel}>Today's Attendance</p>
-        </div>
-        <div style={styles.statCard}>
-          <div style={styles.statIcon}>👑</div>
-          <h3 style={styles.statNumber}>{user?.role}</h3>
-          <p style={styles.statLabel}>Your Role</p>
+    <div className="dashboard-container">
+      {/* Header Section */}
+      <div className="dashboard-header">
+        <div className="header-content">
+          <div className="welcome-section">
+            <h1 className="welcome-title">
+              Welcome back, {user.name}! 👋
+            </h1>
+            <p className="welcome-subtitle">
+              {currentTime.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              })}
+            </p>
+          </div>
+          {/* header actions removed: notifications and avatar intentionally hidden */}
         </div>
       </div>
 
-      <div style={styles.content}>
-        <div style={styles.card}>
-          <h2 style={styles.cardTitle}>User Information</h2>
-          <div style={styles.userDetails}>
-            <div style={styles.detailItem}>
-              <span style={styles.detailLabel}>Name:</span>
-              <span style={styles.detailValue}>{user?.name}</span>
+      {/* Stats Grid */}
+      <div className="dashboard-grid">
+        <div className="stat-card">
+          <div className="stat-icon">
+            <FaUsers />
+          </div>
+          <div className="stat-title">Total Employees</div>
+          <div className="stat-value">1</div>
+          <div className="stat-change positive">
+            <span>↑ 12%</span> vs last month
+          </div>
+        </div>
+
+        <div className="stat-card">
+          <div className="stat-icon">
+            <FaBuilding />
+          </div>
+          <div className="stat-title">Departments</div>
+          <div className="stat-value">0</div>
+          <div className="stat-change">
+            <span>Total Count</span>
+          </div>
+        </div>
+
+        <div className="stat-card">
+          <div className="stat-icon">
+            <FaCalendarCheck />
+          </div>
+          <div className="stat-title">Today's Attendance</div>
+          <div className="stat-value">0</div>
+          <div className="stat-change">
+            <span>Present Today</span>
+          </div>
+        </div>
+
+        <div className="stat-card">
+          <div className="stat-icon">
+            <FaUserCheck />
+          </div>
+          <div className="stat-title">Your Role</div>
+          <div className="stat-value">{user.role}</div>
+          <div className="stat-change">
+            <span>Access Level</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Quick Actions */}
+      <div className="quick-actions-section">
+        <h3 className="section-title">Quick Actions</h3>
+        <div className="quick-actions-grid">
+          {quickActions.map((action, index) => {
+            // Treat Add Employee and Settings as admin-only CRUD actions
+            const isCrud = action.title === 'Add Employee' || action.title === 'Settings';
+            const card = (
+              <button
+                key={index}
+                className="quick-action-card"
+                onClick={action.action}
+                style={{ '--action-color': action.color }}
+              >
+                <div className="action-icon" style={{ background: action.color }}>
+                  {action.icon}
+                </div>
+                <div className="action-content">
+                  <h4 className="action-title">{action.title}</h4>
+                  <p className="action-description">{action.description}</p>
+                </div>
+                <div className="action-arrow">
+                  <FaPlus />
+                </div>
+              </button>
+            );
+
+            return isCrud ? (
+              <AdminOnly key={index} fallback={null}>
+                {card}
+              </AdminOnly>
+            ) : (
+              card
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Main Content Grid */}
+      <div className="content-grid">
+        {/* User Information */}
+        <div className="chart-card user-info-card">
+          <div className="card-header">
+            <h3 className="chart-title">Profile Information</h3>
+            <AdminOnly>
+              <button className="edit-btn">
+                <FaCog /> Edit
+              </button>
+            </AdminOnly>
+          </div>
+          <div className="timeline">
+            <div className="timeline-item">
+              <div className="timeline-time">Name</div>
+              <div className="timeline-content">{user.name}</div>
             </div>
-            <div style={styles.detailItem}>
-              <span style={styles.detailLabel}>Email:</span>
-              <span style={styles.detailValue}>{user?.email}</span>
+            <div className="timeline-item">
+              <div className="timeline-time">Email</div>
+              <div className="timeline-content">{user.email}</div>
             </div>
-            <div style={styles.detailItem}>
-              <span style={styles.detailLabel}>Role:</span>
-              <span style={{...styles.detailValue, ...styles.roleBadge}}>
-                {user?.role}
-              </span>
+            <div className="timeline-item">
+              <div className="timeline-time">Role</div>
+              <div className="timeline-content">
+                <span className="role-badge">{user.role}</span>
+              </div>
             </div>
-            <div style={styles.detailItem}>
-              <span style={styles.detailLabel}>Join Date:</span>
-              <span style={styles.detailValue}>{new Date(user?.joinDate).toLocaleDateString()}</span>
+            <div className="timeline-item">
+              <div className="timeline-time">Join Date</div>
+              <div className="timeline-content">
+                {new Date(user.joinDate).toLocaleDateString()}
+              </div>
             </div>
           </div>
         </div>
 
-        {user?.role === 'Admin' && (
-          <div style={styles.card}>
-            <h2 style={styles.cardTitle}>Admin Privileges</h2>
-            <p style={styles.cardText}>As an Administrator, you have access to:</p>
-            <div style={styles.privileges}>
-              <div style={styles.privilegeItem}>
-                <span style={styles.privilegeIcon}>👥</span>
-                <span>Manage all employees</span>
-              </div>
-              <div style={styles.privilegeItem}>
-                <span style={styles.privilegeIcon}>🏢</span>
-                <span>Create and manage departments</span>
-              </div>
-              <div style={styles.privilegeItem}>
-                <span style={styles.privilegeIcon}>📊</span>
-                <span>View attendance reports</span>
-              </div>
-              <div style={styles.privilegeItem}>
-                <span style={styles.privilegeIcon}>⚙️</span>
-                <span>System configuration</span>
-              </div>
-            </div>
+        {/* Recent Activities */}
+        <div className="chart-card activities-card">
+          <div className="card-header">
+            <h3 className="chart-title">Recent Activities</h3>
+            <button className="view-all-btn">
+              <FaEye /> View All
+            </button>
           </div>
-        )}
-
-        {user?.role === 'Employee' && (
-          <div style={styles.card}>
-            <h2 style={styles.cardTitle}>Employee Dashboard</h2>
-            <p style={styles.cardText}>Welcome to your employee dashboard! You can:</p>
-            <div style={styles.privileges}>
-              <div style={styles.privilegeItem}>
-                <span style={styles.privilegeIcon}>👤</span>
-                <span>View your personal information</span>
+          <div className="activities-list">
+            {recentActivities.map((activity, index) => (
+              <div key={index} className="activity-item">
+                <div className={`activity-icon ${activity.type}`}>
+                  {activity.icon}
+                </div>
+                <div className="activity-content">
+                  <h4 className="activity-title">{activity.title}</h4>
+                  <p className="activity-description">{activity.description}</p>
+                  <span className="activity-time">
+                    <FaClock /> {activity.time}
+                  </span>
+                </div>
               </div>
-              <div style={styles.privilegeItem}>
-                <span style={styles.privilegeIcon}>📅</span>
-                <span>Check your attendance records</span>
-              </div>
-              <div style={styles.privilegeItem}>
-                <span style={styles.privilegeIcon}>🔄</span>
-                <span>Update your profile</span>
-              </div>
-            </div>
+            ))}
           </div>
-        )}
+        </div>
       </div>
+
+      {/* Role-based Content */}
+      {user.role === 'Admin' && (
+        <div className="chart-card admin-card">
+          <h3 className="chart-title">Admin Privileges</h3>
+          <div className="privileges-grid">
+            <div className="privilege-item">
+              <FaUsers className="privilege-icon" />
+              <span>Manage all employees and their records</span>
+            </div>
+            <div className="privilege-item">
+              <FaBuilding className="privilege-icon" />
+              <span>Create and manage departments</span>
+            </div>
+            <div className="privilege-item">
+              <FaChartLine className="privilege-icon" />
+              <span>View and manage attendance reports</span>
+            </div>
+            <div className="privilege-item">
+              <FaCog className="privilege-icon" />
+              <span>Configure system settings and permissions</span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {user.role === 'Employee' && (
+        <div className="chart-card employee-card">
+          <h3 className="chart-title">Employee Dashboard</h3>
+          <div className="privileges-grid">
+            <div className="privilege-item">
+              <FaUserCheck className="privilege-icon" />
+              <span>View and update your personal information</span>
+            </div>
+            <div className="privilege-item">
+              <FaCalendarCheck className="privilege-icon" />
+              <span>Check your attendance records and history</span>
+            </div>
+            <div className="privilege-item">
+              <FaBell className="privilege-icon" />
+              <span>View department updates and announcements</span>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
-};
-
-const styles = {
-  container: {
-    minHeight: '100vh',
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    padding: '40px 20px',
-    fontFamily: 'Arial, sans-serif',
-  },
-  header: {
-    textAlign: 'center',
-    marginBottom: '50px',
-    color: 'white',
-  },
-  title: {
-    fontSize: '3rem',
-    fontWeight: 'bold',
-    marginBottom: '10px',
-    textShadow: '0 2px 10px rgba(0,0,0,0.1)',
-  },
-  subtitle: {
-    fontSize: '1.3rem',
-    opacity: 0.9,
-    margin: 0,
-  },
-  stats: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-    gap: '25px',
-    marginBottom: '50px',
-    maxWidth: '1000px',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-  },
-  statCard: {
-    background: 'rgba(255, 255, 255, 0.95)',
-    backdropFilter: 'blur(10px)',
-    padding: '30px 20px',
-    borderRadius: '20px',
-    textAlign: 'center',
-    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)',
-    transition: 'transform 0.3s ease',
-  },
-  statIcon: {
-    fontSize: '2.5rem',
-    marginBottom: '15px',
-  },
-  statNumber: {
-    fontSize: '2.5rem',
-    fontWeight: 'bold',
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-    margin: '10px 0',
-  },
-  statLabel: {
-    color: '#666',
-    fontSize: '1rem',
-    margin: 0,
-    fontWeight: '500',
-  },
-  content: {
-    maxWidth: '1000px',
-    margin: '0 auto',
-    display: 'grid',
-    gap: '25px',
-  },
-  card: {
-    background: 'rgba(255, 255, 255, 0.95)',
-    backdropFilter: 'blur(10px)',
-    padding: '35px',
-    borderRadius: '20px',
-    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)',
-  },
-  cardTitle: {
-    fontSize: '1.8rem',
-    color: '#333',
-    marginBottom: '20px',
-    fontWeight: '600',
-  },
-  cardText: {
-    color: '#666',
-    fontSize: '1.1rem',
-    marginBottom: '25px',
-    lineHeight: '1.6',
-  },
-  userDetails: {
-    display: 'grid',
-    gap: '15px',
-  },
-  detailItem: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '12px 0',
-    borderBottom: '1px solid #f0f0f0',
-  },
-  detailLabel: {
-    fontWeight: '600',
-    color: '#333',
-    fontSize: '1rem',
-  },
-  detailValue: {
-    color: '#666',
-    fontSize: '1rem',
-  },
-  roleBadge: {
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    color: 'white',
-    padding: '5px 15px',
-    borderRadius: '20px',
-    fontSize: '0.9rem',
-    fontWeight: '500',
-  },
-  privileges: {
-    display: 'grid',
-    gap: '15px',
-  },
-  privilegeItem: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '15px',
-    padding: '15px',
-    backgroundColor: '#f8f9fa',
-    borderRadius: '12px',
-    fontSize: '1rem',
-    color: '#333',
-  },
-  privilegeIcon: {
-    fontSize: '1.3rem',
-  },
 };
 
 export default Dashboard;

@@ -56,7 +56,7 @@ const Register = () => {
             <div style={styles.logoIcon}>HR</div>
           </div>
           <h2 style={styles.title}>Create Account</h2>
-          <p style={styles.subtitle}>Join HRMS to get started</p>
+          <p style={styles.subtitle}>Join EMS to get started</p>
         </div>
 
         {/* Error Message */}
@@ -216,7 +216,7 @@ const Register = () => {
 const styles = {
   container: {
     minHeight: '100vh',
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    background: 'transparent',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -229,7 +229,7 @@ const styles = {
     position: 'absolute',
     width: '400px',
     height: '400px',
-    background: 'radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%)',
+    background: 'radial-gradient(circle, rgba(59,130,246,0.06) 0%, transparent 70%)',
     borderRadius: '50%',
     top: '10%',
     left: '10%',
@@ -239,7 +239,7 @@ const styles = {
     position: 'absolute',
     width: '300px',
     height: '300px',
-    background: 'radial-gradient(circle, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 70%)',
+    background: 'radial-gradient(circle, rgba(6,182,212,0.05) 0%, transparent 70%)',
     borderRadius: '50%',
     bottom: '15%',
     right: '15%',
@@ -249,18 +249,18 @@ const styles = {
     position: 'absolute',
     width: '200px',
     height: '200px',
-    background: 'radial-gradient(circle, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0) 70%)',
+    background: 'radial-gradient(circle, rgba(16,185,129,0.04) 0%, transparent 70%)',
     borderRadius: '50%',
     top: '60%',
     left: '70%',
     animation: 'float 7s ease-in-out infinite, pulse 5s ease-in-out infinite alternate',
   },
   card: {
-    background: 'rgba(255, 255, 255, 0.98)',
-    backdropFilter: 'blur(20px)',
+    background: 'var(--glass-bg)',
+    backdropFilter: 'blur(16px)',
     padding: '40px',
     borderRadius: '24px',
-    boxShadow: '0 30px 90px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.3)',
+    boxShadow: 'var(--glass-shadow)',
     width: '420px',
     display: 'flex',
     flexDirection: 'column',
@@ -274,7 +274,7 @@ const styles = {
     left: 0,
     right: 0,
     height: '4px',
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    background: 'var(--gradient-primary)',
   },
   header: {
     textAlign: 'center',
@@ -288,7 +288,7 @@ const styles = {
   logoIcon: {
     width: '64px',
     height: '64px',
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    background: 'var(--gradient-primary)',
     borderRadius: '16px',
     display: 'flex',
     alignItems: 'center',
@@ -296,14 +296,14 @@ const styles = {
     color: 'white',
     fontSize: '20px',
     fontWeight: 'bold',
-    boxShadow: '0 8px 20px rgba(102, 126, 234, 0.4)',
+    boxShadow: '0 8px 20px rgba(59,130,246,0.18)',
     transform: 'rotate(-5deg)',
     position: 'relative',
   },
   title: {
     fontSize: '28px',
     fontWeight: '700',
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    background: 'var(--gradient-primary)',
     backgroundClip: 'text',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
@@ -312,7 +312,7 @@ const styles = {
   },
   subtitle: {
     fontSize: '15px',
-    color: '#6b7280',
+    color: 'var(--text-tertiary)',
     margin: 0,
     fontWeight: '400',
   },
@@ -328,7 +328,7 @@ const styles = {
   label: {
     fontSize: '14px',
     fontWeight: '600',
-    color: '#374151',
+    color: 'var(--text-secondary)',
     display: 'flex',
     alignItems: 'center',
     gap: '8px',
@@ -340,18 +340,19 @@ const styles = {
   input: {
     width: '100%',
     padding: '16px 18px',
-    border: '2px solid #e5e7eb',
+    border: '1px solid var(--border-medium)',
     borderRadius: '12px',
     fontSize: '15px',
     transition: 'all 0.3s ease',
-    backgroundColor: '#fafbfc',
+    backgroundColor: 'var(--bg-surface)',
+    color: 'var(--text-primary)',
     boxSizing: 'border-box',
     fontFamily: 'inherit',
   },
   inputFocus: {
-    borderColor: '#667eea',
-    backgroundColor: 'white',
-    boxShadow: '0 4px 12px rgba(102, 126, 234, 0.15)',
+    borderColor: 'var(--primary-color)',
+    backgroundColor: 'var(--bg-surface)',
+    boxShadow: '0 6px 20px rgba(59,130,246,0.08)',
     outline: 'none',
     transform: 'translateY(-1px)',
   },
@@ -361,11 +362,11 @@ const styles = {
   select: {
     width: '100%',
     padding: '16px 18px',
-    border: '2px solid #e5e7eb',
+    border: '1px solid var(--border-medium)',
     borderRadius: '12px',
     fontSize: '15px',
     transition: 'all 0.3s ease',
-    backgroundColor: '#fafbfc',
+    backgroundColor: 'var(--bg-surface)',
     boxSizing: 'border-box',
     cursor: 'pointer',
     fontFamily: 'inherit',
@@ -376,7 +377,7 @@ const styles = {
     right: '18px',
     top: '50%',
     transform: 'translateY(-50%)',
-    color: '#667eea',
+    color: 'var(--primary-color)',
     fontSize: '12px',
     pointerEvents: 'none',
   },
@@ -386,7 +387,7 @@ const styles = {
     left: '50%',
     width: '0%',
     height: '2px',
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    background: 'var(--gradient-primary)',
     transition: 'all 0.3s ease',
     transform: 'translateX(-50%)',
   },
@@ -396,7 +397,7 @@ const styles = {
   button: {
     width: '100%',
     padding: '16px',
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    background: 'var(--gradient-primary)',
     color: 'white',
     border: 'none',
     borderRadius: '12px',
@@ -405,7 +406,7 @@ const styles = {
     cursor: 'pointer',
     transition: 'all 0.3s ease',
     marginTop: 'auto',
-    boxShadow: '0 8px 20px rgba(102, 126, 234, 0.35)',
+    boxShadow: '0 10px 30px rgba(59,130,246,0.12)',
     letterSpacing: '0.3px',
   },
   buttonDisabled: {
@@ -432,9 +433,9 @@ const styles = {
     animation: 'spin 1s linear infinite',
   },
   error: {
-    color: '#dc2626',
-    backgroundColor: '#fef2f2',
-    border: '1px solid #fee2e2',
+    color: 'var(--error)',
+    backgroundColor: 'var(--error-bg)',
+    border: '1px solid rgba(239, 68, 68, 0.18)',
     padding: '14px 18px',
     borderRadius: '12px',
     marginBottom: '24px',
@@ -451,27 +452,27 @@ const styles = {
     textAlign: 'center',
     marginTop: '24px',
     paddingTop: '24px',
-    borderTop: '1px solid #f0f0f0',
+    borderTop: '1px solid var(--border-light)',
   },
   divider: {
     position: 'relative',
     marginBottom: '20px',
   },
   dividerText: {
-    backgroundColor: 'white',
+    backgroundColor: 'transparent',
     padding: '0 12px',
-    color: '#6b7280',
+    color: 'var(--text-tertiary)',
     fontSize: '13px',
     position: 'relative',
     zIndex: 1,
   },
   footerText: {
     fontSize: '14px',
-    color: '#6b7280',
+    color: 'var(--text-tertiary)',
     margin: 0,
   },
   registerLink: {
-    color: '#667eea',
+    color: 'var(--primary-color)',
     textDecoration: 'none',
     fontWeight: '700',
   },
@@ -512,11 +513,12 @@ styleElement.textContent = `
   
   button:hover:not(:disabled) {
     transform: translateY(-2px);
-    box-shadow: 0 12px 25px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 12px 30px rgba(59,130,246,0.12);
   }
   
   input:focus, select:focus {
     outline: none;
+    box-shadow: 0 6px 20px rgba(59,130,246,0.06);
   }
 `;
 document.head.appendChild(styleElement);

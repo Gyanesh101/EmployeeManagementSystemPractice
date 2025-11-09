@@ -1,29 +1,143 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { useAuth } from '../context/AuthContext';
+import AdminOnly from '../components/AdminOnly';
+
+const mockEmployees = [
+  { id: 1, name: 'John Doe', department: 'Engineering' },
+  { id: 2, name: 'Sarah Wilson', department: 'Marketing' },
+  { id: 3, name: 'Michael Brown', department: 'HR' },
+  { id: 4, name: 'Lisa Ray', department: 'Finance' },
+];
 
 const Attendance = () => {
-  const { user } = useAuth();
+  const { user, isAdmin } = useAuth();
+  const [query, setQuery] = useState('');
+  const [records, setRecords] = useState(() =>
+    mockEmployees.map((e) => ({ ...e, status: 'absent', time: null }))
+  );
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return records;
+    return records.filter(
+      (r) => r.name.toLowerCase().includes(q) || r.department.toLowerCase().includes(q)
+    );
+  }, [query, records]);
+
+  const togglePresent = (id) => {
+    // Prevent non-admin users from toggling attendance on the client side.
+    if (!isAdmin) return;
+
+    setRecords((prev) =>
+      prev.map((r) =>
+        r.id === id
+          ? {
+              ...r,
+              status: r.status === 'present' ? 'absent' : 'present',
+              time: r.status === 'present' ? null : new Date().toLocaleTimeString(),
+            }
+          : r
+      )
+    );
+  };
+
+  const summary = useMemo(() => {
+    const total = records.length;
+    const present = records.filter((r) => r.status === 'present').length;
+    const absent = total - present;
+    return { total, present, absent };
+  }, [records]);
 
   return (
-    <div style={styles.container}>
-      <div style={styles.header}>
-        <h1>Attendance Tracking</h1>
-        <p>Track employee check-ins and check-outs</p>
-      </div>
-
-      <div style={styles.card}>
-        <h2>Attendance Records</h2>
-        <p>Attendance tracking features will be implemented here.</p>
-        <p><strong>Current User:</strong> {user?.name}</p>
-        
-        <div style={styles.placeholder}>
-          <p>📅 Attendance system coming soon...</p>
-          <p>⏰ Check-in/check-out functionality</p>
-          <p>📊 Attendance reports</p>
-          <p>📈 Monthly summaries</p>
+    <main style={styles.container}>
+      <header style={styles.header}>
+        <div>
+          <h1 style={styles.title}>Attendance</h1>
+          <p style={styles.subtitle}>Track check-ins, check-outs and daily presence</p>
         </div>
-      </div>
-    </div>
+        <div style={styles.meta}>
+          <div style={styles.metaItem}>
+            <div style={styles.metaLabel}>Date</div>
+            <div style={styles.metaValue}>{new Date().toLocaleDateString()}</div>
+          </div>
+          <div style={styles.metaItem}>
+            <div style={styles.metaLabel}>You</div>
+            <div style={styles.metaValue}>{user?.name}</div>
+          </div>
+        </div>
+      </header>
+
+      <section style={styles.summaryRow} aria-hidden>
+        <div style={styles.statCard}>
+          <div style={styles.statLabel}>Total</div>
+          <div style={styles.statValue}>{summary.total}</div>
+        </div>
+        <div style={styles.statCard}>
+          <div style={styles.statLabel}>Present</div>
+          <div style={styles.statValuePresent}>{summary.present}</div>
+        </div>
+        <div style={styles.statCard}>
+          <div style={styles.statLabel}>Absent</div>
+          <div style={styles.statValue}>{summary.absent}</div>
+        </div>
+      </section>
+
+      <section style={styles.controls}>
+        <input
+          aria-label="Search employees"
+          placeholder="Search by name or department"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          style={styles.search}
+        />
+      </section>
+
+      <section style={styles.tableCard}>
+        <table style={styles.table}>
+          <thead>
+            <tr>
+              <th style={styles.th}>Name</th>
+              <th style={styles.th}>Department</th>
+              <th style={styles.th}>Status</th>
+              <th style={styles.th}>Time</th>
+              <th style={styles.th}>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filtered.map((r) => (
+              <tr key={r.id} style={styles.tr}>
+                <td style={styles.td}>{r.name}</td>
+                <td style={styles.td}>{r.department}</td>
+                <td style={styles.td}>
+                  <span style={r.status === 'present' ? styles.badgePresent : styles.badgeAbsent}>
+                    {r.status}
+                  </span>
+                </td>
+                <td style={styles.td}>{r.time || '-'}</td>
+                <td style={styles.td}>
+                  <AdminOnly disable>
+                    <button
+                      onClick={() => togglePresent(r.id)}
+                      style={r.status === 'present' ? styles.unmarkBtn : styles.markBtn}
+                      aria-pressed={r.status === 'present'}
+                    >
+                      {r.status === 'present' ? 'Unmark' : 'Mark Present'}
+                    </button>
+                  </AdminOnly>
+                </td>
+              </tr>
+            ))}
+            {filtered.length === 0 && (
+              <tr>
+                <td style={styles.empty} colSpan={5}>
+                  No employees found
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </section>
+    </main>
   );
 };
 
@@ -31,23 +145,79 @@ const styles = {
   container: {
     maxWidth: '1200px',
     margin: '0 auto',
-    padding: '40px 20px',
+    padding: 'var(--space-8) var(--space-6)',
+    color: 'var(--text-primary)',
   },
   header: {
-    marginBottom: '30px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 'var(--space-6)',
   },
-  card: {
-    backgroundColor: 'white',
-    padding: '30px',
-    borderRadius: '12px',
-    boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+  title: {
+    fontSize: 'var(--font-size-2xl)',
+    margin: 0,
   },
-  placeholder: {
-    textAlign: 'center',
-    padding: '40px',
-    color: '#666',
-    lineHeight: '1.8',
+  subtitle: {
+    color: 'var(--text-secondary)',
+    marginTop: 'var(--space-2)',
+    fontSize: 'var(--font-size-sm)'
   },
+  meta: {
+    display: 'flex',
+    gap: 'var(--space-4)',
+    alignItems: 'flex-end',
+  },
+  metaItem: {
+    textAlign: 'right'
+  },
+  metaLabel: {
+    fontSize: 'var(--font-size-xs)',
+    color: 'var(--text-tertiary)'
+  },
+  metaValue: {
+    fontSize: 'var(--font-size-sm)'
+  },
+  summaryRow: {
+    display: 'flex',
+    gap: 'var(--space-4)',
+    marginBottom: 'var(--space-6)'
+  },
+  statCard: {
+    flex: '1',
+    background: 'var(--glass-bg)',
+    border: '1px solid var(--glass-border)',
+    padding: 'var(--space-4)',
+    borderRadius: 'var(--radius-lg)'
+  },
+  statLabel: { color: 'var(--text-secondary)', fontSize: 'var(--font-size-sm)' },
+  statValue: { fontSize: 'var(--font-size-2xl)', fontWeight: 'var(--font-weight-bold)' },
+  statValuePresent: { fontSize: 'var(--font-size-2xl)', fontWeight: 'var(--font-weight-bold)', color: 'var(--success)' },
+  controls: { display: 'flex', justifyContent: 'flex-end', marginBottom: 'var(--space-4)' },
+  search: {
+    padding: 'var(--space-3) var(--space-4)',
+    borderRadius: 'var(--radius-lg)',
+    border: '1px solid var(--border-medium)',
+    background: 'var(--bg-surface)',
+    color: 'var(--text-primary)',
+    outline: 'none',
+    width: '320px'
+  },
+  tableCard: {
+    background: 'var(--glass-bg)',
+    border: '1px solid var(--glass-border)',
+    borderRadius: 'var(--radius-2xl)',
+    padding: 'var(--space-4)'
+  },
+  table: { width: '100%', borderCollapse: 'collapse' },
+  th: { textAlign: 'left', padding: 'var(--space-3) var(--space-4)', color: 'var(--text-secondary)', fontSize: 'var(--font-size-sm)' },
+  tr: { borderBottom: '1px solid var(--border-light)' },
+  td: { padding: 'var(--space-3) var(--space-4)', verticalAlign: 'middle' },
+  badgePresent: { padding: '4px 8px', borderRadius: '9999px', background: 'rgba(16,185,129,0.12)', color: 'var(--success)', textTransform: 'capitalize' },
+  badgeAbsent: { padding: '4px 8px', borderRadius: '9999px', background: 'rgba(255,255,255,0.02)', color: 'var(--text-secondary)', textTransform: 'capitalize' },
+  markBtn: { padding: '8px 12px', background: 'var(--gradient-primary)', color: 'var(--text-primary)', border: 'none', borderRadius: 'var(--radius-lg)', cursor: 'pointer' },
+  unmarkBtn: { padding: '8px 12px', background: 'transparent', color: 'var(--text-secondary)', border: '1px solid var(--border-medium)', borderRadius: 'var(--radius-lg)', cursor: 'pointer' },
+  empty: { textAlign: 'center', padding: 'var(--space-6)', color: 'var(--text-secondary)' }
 };
 
 export default Attendance;
