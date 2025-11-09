@@ -1,0 +1,197 @@
+/* Theme transition */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Theme toggle button styles */
+.theme-toggle {
+  background: var(--card-bg) !important;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border-color) !important;
+}
+
+.theme-toggle:hover {
+  transform: rotate(360deg);
+  background: var(--hover-bg) !important;
+}
+
+/* Dark theme specific overrides */
+[data-theme='dark'] {
+  /* Global styles */
+  body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+  }
+
+  /* Card styles */
+  .card {
+    background: var(--card-bg);
+    border-color: var(--border-color);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .card:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Navbar styles */
+  nav {
+    background: var(--nav-bg);
+    border-bottom: 1px solid var(--border-color);
+    backdrop-filter: blur(10px);
+  }
+
+  /* Table styles */
+  .table {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+  }
+
+  .table th {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .table td {
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .table tbody tr:hover {
+    background: var(--hover-bg);
+  }
+
+  /* Form styles */
+  .input, 
+  .select, 
+  .textarea {
+    background: var(--input-bg);
+    border-color: var(--input-border);
+    color: var(--text-color);
+  }
+
+  .input:focus, 
+  .select:focus, 
+  .textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+  }
+
+  /* Button styles */
+  .btn {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  }
+
+  .btn:hover {
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+  }
+
+  .btn-secondary {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+  }
+
+  /* Dropdown/Menu styles */
+  .dropdown-menu,
+  .context-menu {
+    background: var(--dropdown-bg);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .dropdown-item:hover {
+    background: var(--hover-bg);
+  }
+
+  /* Modal styles */
+  .modal {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+  }
+
+  .modal-header {
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .modal-footer {
+    border-top: 1px solid var(--border-color);
+  }
+
+  /* Alert/Message styles */
+  .alert {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+  }
+
+  .alert-error {
+    background: var(--error-bg);
+    border-color: rgba(231, 76, 60, 0.3);
+  }
+
+  .alert-success {
+    background: var(--success-bg);
+    border-color: rgba(46, 204, 113, 0.3);
+  }
+
+  /* Loading states */
+  .loading::after {
+    border-color: rgba(102, 126, 234, 0.2);
+    border-left-color: var(--primary-color);
+  }
+
+  /* Scrollbar styles */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--background-color);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, var(--primary-color) 20%, var(--secondary-color) 80%);
+  }
+
+  /* Selection style */
+  ::selection {
+    background: var(--highlight-bg);
+    color: var(--text-color);
+  }
+
+  /* Profile menu */
+  .profile-menu {
+    background: var(--dropdown-bg);
+    border: 1px solid var(--border-color);
+  }
+
+  /* Dashboard cards */
+  .stat-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+  }
+
+  /* Charts and graphs */
+  .chart-container {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+  }
+
+  /* Badge/Tag styles */
+  .badge {
+    background: var(--hover-bg);
+    color: var(--text-color);
+  }
+
+  /* Tooltip styles */
+  .tooltip {
+    background: var(--dropdown-bg);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+}
