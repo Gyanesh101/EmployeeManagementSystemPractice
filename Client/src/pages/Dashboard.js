@@ -29,6 +29,7 @@ const Dashboard = () => {
   const [attendance, setAttendance] = useState({ status: '-', time: null });
   const [totalEmployees, setTotalEmployees] = useState(null);
   const [totalAttendance, setTotalAttendance] = useState(null);
+  const [departmentsCount, setDepartmentsCount] = useState(null);
 
   useEffect(() => {
     // Simulate loading time for better UX
@@ -63,51 +64,24 @@ const Dashboard = () => {
   }, []);
 
   useEffect(() => {
-    if (!user) return;
     let mounted = true;
-    const fetchTotals = async () => {
+    const fetchPublicStats = async () => {
       try {
-        // Admins can request full data; non-admins get best-effort values.
-        if ((user.role || '').toLowerCase() === 'admin') {
-          const [usersRes, attendanceRes] = await Promise.all([
-            axios.get('/api/auth/users'),
-            axios.get('/api/attendance')
-          ]);
-          if (!mounted) return;
-          const users = usersRes.data.data || usersRes.data || [];
-          const employeesCount = users.filter(u => (u.role || '').toLowerCase() !== 'admin').length;
-          const attendanceList = attendanceRes.data.data || attendanceRes.data || [];
-          const presentCount = attendanceList.filter(a => (a.status || '').toLowerCase() === 'present').length;
-          setTotalEmployees(employeesCount);
-          setTotalAttendance(presentCount);
-        } else {
-          // Non-admin: try to get users count (may be forbidden) and use /me for attendance
-          try {
-            const usersRes = await axios.get('/api/auth/users');
-            if (!mounted) return;
-            const users = usersRes.data.data || usersRes.data || [];
-            setTotalEmployees(users.filter(u => (u.role || '').toLowerCase() !== 'admin').length);
-          } catch (e) {
-            setTotalEmployees(null);
-          }
-
-          try {
-            const meRes = await axios.get('/api/attendance/me');
-            if (!mounted) return;
-            const r = meRes.data.data || {};
-            setTotalAttendance((r.status || '').toLowerCase() === 'present' ? 1 : 0);
-          } catch (e) {
-            setTotalAttendance(null);
-          }
-        }
+        const res = await axios.get('/api/stats/public');
+        if (!mounted) return;
+        const d = res.data.data || {};
+        setTotalEmployees(d.totalEmployees ?? null);
+        setTotalAttendance(d.presentToday ?? null);
+        setDepartmentsCount(d.departmentsCount ?? null);
       } catch (err) {
         setTotalEmployees(null);
         setTotalAttendance(null);
+        setDepartmentsCount(null);
       }
     };
-    fetchTotals();
+    fetchPublicStats();
     return () => { mounted = false };
-  }, [user]);
+  }, []);
 
   if (!user) {
     return (
@@ -221,7 +195,7 @@ const Dashboard = () => {
             <FaBuilding />
           </div>
           <div className="stat-title">Departments</div>
-          <div className="stat-value">0</div>
+          <div className="stat-value">{departmentsCount !== null ? departmentsCount : '-'}</div>
           <div className="stat-change">
             <span>Total Count</span>
           </div>

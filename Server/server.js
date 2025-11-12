@@ -5,6 +5,7 @@ const { connectDB } = require('./config/database');
 const authRoutes = require('./routes/authRoutes');
 const attendanceRoutes = require('./routes/attendanceRoutes');
 const departmentRoutes = require('./routes/departmentRoutes');
+const statsRoutes = require('./routes/statsRoutes');
 const cron = require('node-cron');
 const Attendance = require('./models/Attendance');
 const AttendanceHistory = require('./models/AttendanceHistory');
@@ -25,6 +26,7 @@ connectDB();
 app.use('/api/auth', authRoutes);
 app.use('/api/attendance', attendanceRoutes);
 app.use('/api/departments', departmentRoutes);
+app.use('/api/stats', statsRoutes);
 
 // Basic route
 app.get('/', (req, res) => {
