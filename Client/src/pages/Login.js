@@ -169,48 +169,49 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '20px',
+    padding: '14px',
     fontFamily: 'Poppins, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
     position: 'relative',
     overflow: 'hidden',
   },
   circle1: {
     position: 'absolute',
-    width: '400px',
-    height: '400px',
-    background: 'radial-gradient(circle, rgba(59,130,246,0.06) 0%, transparent 70%)',
+    width: '220px',
+    height: '220px',
+    background: 'radial-gradient(circle, rgba(59,130,246,0.045) 0%, transparent 70%)',
     borderRadius: '50%',
-    top: '10%',
-    left: '10%',
+    top: '6%',
+    left: '6%',
     animation: 'float 8s ease-in-out infinite, pulse 4s ease-in-out infinite alternate',
   },
   circle2: {
     position: 'absolute',
-    width: '300px',
-    height: '300px',
-    background: 'radial-gradient(circle, rgba(6,182,212,0.05) 0%, transparent 70%)',
+    width: '180px',
+    height: '180px',
+    background: 'radial-gradient(circle, rgba(6,182,212,0.04) 0%, transparent 70%)',
     borderRadius: '50%',
-    bottom: '15%',
-    right: '15%',
+    bottom: '12%',
+    right: '12%',
     animation: 'float 6s ease-in-out infinite reverse, pulse 3s ease-in-out infinite alternate',
   },
   circle3: {
     position: 'absolute',
-    width: '200px',
-    height: '200px',
-    background: 'radial-gradient(circle, rgba(16,185,129,0.04) 0%, transparent 70%)',
+    width: '140px',
+    height: '140px',
+    background: 'radial-gradient(circle, rgba(16,185,129,0.035) 0%, transparent 70%)',
     borderRadius: '50%',
-    top: '60%',
-    left: '70%',
+    top: '58%',
+    left: '66%',
     animation: 'float 7s ease-in-out infinite, pulse 5s ease-in-out infinite alternate',
   },
   card: {
     background: 'var(--glass-bg)',
-    backdropFilter: 'blur(16px)',
-    padding: '40px',
-    borderRadius: '24px',
-    boxShadow: 'var(--glass-shadow)',
-    width: '420px',
+    backdropFilter: 'blur(8px)',
+    padding: '20px',
+    borderRadius: '16px',
+    boxShadow: '0 6px 14px rgba(0,0,0,0.18)',
+    maxWidth: '420px',
+    width: '86vw',
     display: 'flex',
     flexDirection: 'column',
     position: 'relative',
@@ -222,8 +223,10 @@ const styles = {
     top: 0,
     left: 0,
     right: 0,
-    height: '4px',
-    background: 'var(--gradient-primary)',
+    height: '6px',
+    borderTopLeftRadius: '16px',
+    borderTopRightRadius: '16px',
+    background: 'linear-gradient(90deg, rgba(255,126,182,0.18), rgba(127,127,213,0.18) 50%, rgba(6,182,212,0.14))',
   },
   header: {
     textAlign: 'center',
@@ -235,33 +238,34 @@ const styles = {
     marginBottom: '24px',
   },
   logoIcon: {
-    width: '64px',
-    height: '64px',
+    width: '48px',
+    height: '48px',
     background: 'var(--gradient-primary)',
-    borderRadius: '16px',
+    borderRadius: '12px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     color: 'white',
-    fontSize: '20px',
-    fontWeight: 'bold',
-    boxShadow: '0 8px 20px rgba(59,130,246,0.18)',
+    fontSize: '16px',
+    fontWeight: '700',
+    boxShadow: '0 6px 14px rgba(59,130,246,0.10)',
     transform: 'rotate(-5deg)',
     position: 'relative',
+    border: '1px solid rgba(255,255,255,0.04)',
   },
   title: {
-    fontSize: '28px',
+    fontSize: '24px',
     fontWeight: '700',
     background: 'var(--gradient-primary)',
     backgroundClip: 'text',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
-    margin: '0 0 8px 0',
-    letterSpacing: '-0.8px',
+    margin: '0 0 6px 0',
+    letterSpacing: '-0.4px',
   },
   subtitle: {
-    fontSize: '15px',
-    color: 'var(--text-tertiary)',
+    fontSize: '13px',
+    color: 'var(--text-secondary)',
     margin: 0,
     fontWeight: '400',
   },
@@ -271,7 +275,7 @@ const styles = {
     flexDirection: 'column',
   },
   formGroup: {
-    marginBottom: '28px',
+    marginBottom: '16px',
     position: 'relative',
   },
   labelContainer: {
@@ -293,10 +297,10 @@ const styles = {
   },
   input: {
     width: '100%',
-    padding: '16px 18px',
+    padding: '10px 12px',
     border: '1px solid var(--border-medium)',
-    borderRadius: '12px',
-    fontSize: '15px',
+    borderRadius: '10px',
+    fontSize: '14px',
     transition: 'all 0.3s ease',
     backgroundColor: 'var(--bg-surface)',
     color: 'var(--text-primary)',
@@ -306,9 +310,9 @@ const styles = {
   inputFocus: {
     borderColor: 'var(--primary-color)',
     backgroundColor: 'var(--bg-surface)',
-    boxShadow: '0 6px 20px rgba(59,130,246,0.08)',
+    boxShadow: '0 4px 12px rgba(59,130,246,0.06)',
     outline: 'none',
-    transform: 'translateY(-1px)',
+    transform: 'translateY(-0.5px)',
   },
   underline: {
     position: 'absolute',
@@ -325,17 +329,17 @@ const styles = {
   },
   button: {
     width: '100%',
-    padding: '16px',
-    background: 'var(--gradient-primary)',
+    padding: '12px',
+    background: 'linear-gradient(90deg, rgba(127,127,213,0.18), rgba(6,182,212,0.14))',
     color: 'white',
-    border: 'none',
-    borderRadius: '12px',
-    fontSize: '16px',
+    border: '1px solid rgba(255,255,255,0.04)',
+    borderRadius: '10px',
+    fontSize: '14px',
     fontWeight: '700',
     cursor: 'pointer',
-    transition: 'all 0.3s ease',
+    transition: 'all 0.22s ease',
     marginTop: 'auto',
-    boxShadow: '0 10px 30px rgba(59,130,246,0.12)',
+    boxShadow: '0 6px 18px rgba(0,0,0,0.12)',
     letterSpacing: '0.3px',
   },
   buttonDisabled: {
@@ -385,18 +389,18 @@ const styles = {
   },
   footer: {
     textAlign: 'center',
-    marginTop: '24px',
-    paddingTop: '24px',
-    borderTop: '1px solid #f0f0f0',
+    marginTop: '16px',
+    paddingTop: '16px',
+    borderTop: '1px solid rgba(255,255,255,0.04)',
   },
   divider: {
     position: 'relative',
-    marginBottom: '20px',
+    marginBottom: '14px',
   },
   dividerText: {
-    backgroundColor: 'white',
-    padding: '0 12px',
-    color: '#6b7280',
+    backgroundColor: 'transparent',
+    padding: '0 10px',
+    color: 'var(--text-secondary)',
     fontSize: '13px',
     position: 'relative',
     zIndex: 1,
@@ -423,12 +427,12 @@ styleElement.textContent = `
   
   @keyframes float {
     0%, 100% { transform: translateY(0) scale(1); }
-    50% { transform: translateY(-20px) scale(1.05); }
+    50% { transform: translateY(-10px) scale(1.02); }
   }
   
   @keyframes pulse {
-    0% { opacity: 0.4; }
-    100% { opacity: 0.8; }
+    0% { opacity: 0.45; }
+    100% { opacity: 0.75; }
   }
   
   @keyframes slideIn {
@@ -443,17 +447,31 @@ styleElement.textContent = `
   }
   
   button:hover:not(:disabled) .buttonArrow {
-    transform: translateX(3px);
+    transform: translateX(2px);
   }
-  
+
   button:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 30px rgba(59,130,246,0.12);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(59,130,246,0.10);
   }
-  
+
   input:focus {
     outline: none;
-    box-shadow: 0 6px 20px rgba(59,130,246,0.06);
+    box-shadow: 0 4px 12px rgba(59,130,246,0.06);
+  }
+  
+  /* Accessibility: visible focus ring for keyboard users */
+  input:focus-visible {
+    outline: 3px solid rgba(99,102,241,0.12);
+    outline-offset: 2px;
+  }
+
+  /* Responsive tweaks */
+  @media (max-width: 480px) {
+    .login-compact-card {
+      width: 94vw !important;
+      padding: 12px !important;
+    }
   }
 `;
 document.head.appendChild(styleElement);

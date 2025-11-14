@@ -4,22 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
 import AdminOnly from '../components/AdminOnly';
 import '../components/dashboard.css';
-import {
-  FaUsers,
-  FaBuilding,
-  FaCalendarCheck,
-  FaUserCheck,
-  FaPlus,
-  FaEye,
-  FaCog,
-  FaBell,
-  FaClock,
-  FaCheckCircle,
-  FaExclamationTriangle,
-  FaChartLine,
-  FaUserPlus,
-  FaCalendarAlt
-} from 'react-icons/fa';
+// Using Font Awesome via CDN; replace react-icons usages with <i> tags
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -102,28 +87,28 @@ const Dashboard = () => {
 
   const quickActions = [
     {
-      icon: <FaUserPlus />,
+      icon: <i className="fa-solid fa-user-plus" aria-hidden="true" title="Add Employee" />,
       title: 'Add Employee',
       description: 'Register new team member',
       color: 'var(--gradient-primary)',
       action: () => navigate('/employees', { state: { openAdd: true } })
     },
     {
-      icon: <FaCalendarAlt />,
+      icon: <i className="fa-solid fa-calendar-check" aria-hidden="true" title="Mark Attendance" />,
       title: 'Mark Attendance',
       description: 'Record daily attendance',
       color: 'var(--gradient-secondary)',
       action: () => navigate('/attendance')
     },
     {
-      icon: <FaEye />,
+      icon: <i className="fa-solid fa-chart-simple" aria-hidden="true" title="View Reports" />,
       title: 'View Reports',
       description: 'Check analytics & insights',
       color: 'linear-gradient(135deg, #ff6b6b, #ee5a24)',
       action: () => console.log('View Reports')
     },
     {
-      icon: <FaCog />,
+      icon: <i className="fa-solid fa-cog" />,
       title: 'Settings',
       description: 'Configure preferences',
       color: 'linear-gradient(135deg, #a8edea, #fed6e3)',
@@ -133,21 +118,21 @@ const Dashboard = () => {
 
   const recentActivities = [
     {
-      icon: <FaCheckCircle />,
+      icon: <i className="fa-solid fa-circle-check" aria-hidden title="Success" />,
       title: 'Attendance marked',
       description: 'John Doe checked in at 9:00 AM',
       time: '2 hours ago',
       type: 'success'
     },
     {
-      icon: <FaUserPlus />,
+      icon: <i className="fa-solid fa-user-plus" aria-hidden title="New Employee" />,
       title: 'New employee added',
       description: 'Sarah Wilson joined Marketing department',
       time: '4 hours ago',
       type: 'info'
     },
     {
-      icon: <FaExclamationTriangle />,
+      icon: <i className="fa-solid fa-tools" aria-hidden title="Maintenance" />,
       title: 'System maintenance',
       description: 'Scheduled maintenance completed successfully',
       time: '1 day ago',
@@ -160,7 +145,7 @@ const Dashboard = () => {
       {/* Header Section */}
       <div className="dashboard-header">
         <div className="header-content">
-          <div className="welcome-section">
+            <div className="welcome-section">
             <h1 className="welcome-title">
               Welcome back, {user.name}! 👋
             </h1>
@@ -181,18 +166,18 @@ const Dashboard = () => {
       <div className="dashboard-grid">
         <div className="stat-card">
           <div className="stat-icon">
-            <FaUsers />
+            <i className="fa-solid fa-users"></i>
           </div>
           <div className="stat-title">Total Employees</div>
           <div className="stat-value">{totalEmployees !== null ? totalEmployees : '-'}</div>
           <div className="stat-change positive">
-            <span>↑ 12%</span> vs last month
+            <span><i className="fa-solid fa-arrow-up" /> 12%</span> vs last month
           </div>
         </div>
 
         <div className="stat-card">
           <div className="stat-icon">
-            <FaBuilding />
+            <i className="fa-solid fa-building"></i>
           </div>
           <div className="stat-title">Departments</div>
           <div className="stat-value">{departmentsCount !== null ? departmentsCount : '-'}</div>
@@ -203,7 +188,7 @@ const Dashboard = () => {
 
         <div className="stat-card">
           <div className="stat-icon">
-            <FaCalendarCheck />
+            <i className="fa-solid fa-calendar-check"></i>
           </div>
           <div className="stat-title">Today's Attendance</div>
           <div className="stat-value">{totalAttendance !== null ? totalAttendance : '-'}</div>
@@ -214,7 +199,7 @@ const Dashboard = () => {
 
         <div className="stat-card">
           <div className="stat-icon">
-            <FaUserCheck />
+            <i className="fa-solid fa-id-badge"></i>
           </div>
           <div className="stat-title">Your Role</div>
           <div className="stat-value">{user.role}</div>
@@ -246,7 +231,7 @@ const Dashboard = () => {
                   <p className="action-description">{action.description}</p>
                 </div>
                 <div className="action-arrow">
-                  <FaPlus />
+                  <i className="fa-solid fa-chevron-right" aria-hidden title="Go"></i>
                 </div>
               </button>
             );
@@ -270,7 +255,7 @@ const Dashboard = () => {
             <h3 className="chart-title">Profile Information</h3>
             <AdminOnly>
               <button className="edit-btn">
-                <FaCog /> Edit
+                <i className="fa-solid fa-cog" aria-hidden title="Edit" ></i> Edit
               </button>
             </AdminOnly>
           </div>
@@ -311,7 +296,7 @@ const Dashboard = () => {
           <div className="card-header">
             <h3 className="chart-title">Recent Activities</h3>
             <button className="view-all-btn">
-              <FaEye /> View All
+              <i className="fa-solid fa-chart-simple" aria-hidden title="View All Reports"></i> View All
             </button>
           </div>
           <div className="activities-list">
@@ -324,7 +309,7 @@ const Dashboard = () => {
                   <h4 className="activity-title">{activity.title}</h4>
                   <p className="activity-description">{activity.description}</p>
                   <span className="activity-time">
-                    <FaClock /> {activity.time}
+                    <i className="fa-solid fa-clock"></i> {activity.time}
                   </span>
                 </div>
               </div>
@@ -339,19 +324,19 @@ const Dashboard = () => {
           <h3 className="chart-title">Admin Privileges</h3>
           <div className="privileges-grid">
             <div className="privilege-item">
-              <FaUsers className="privilege-icon" />
+              <i className="fa-solid fa-users privilege-icon"></i>
               <span>Manage all employees and their records</span>
             </div>
             <div className="privilege-item">
-              <FaBuilding className="privilege-icon" />
+              <i className="fa-solid fa-building privilege-icon"></i>
               <span>Create and manage departments</span>
             </div>
             <div className="privilege-item">
-              <FaChartLine className="privilege-icon" />
+                <i className="fa-solid fa-chart-simple privilege-icon"></i>
               <span>View and manage attendance reports</span>
             </div>
             <div className="privilege-item">
-              <FaCog className="privilege-icon" />
+              <i className="fa-solid fa-cog privilege-icon"></i>
               <span>Configure system settings and permissions</span>
             </div>
           </div>
@@ -363,15 +348,15 @@ const Dashboard = () => {
           <h3 className="chart-title">Employee Dashboard</h3>
           <div className="privileges-grid">
             <div className="privilege-item">
-              <FaUserCheck className="privilege-icon" />
+              <i className="fa-solid fa-user privilege-icon"></i>
               <span>View and update your personal information</span>
             </div>
             <div className="privilege-item">
-              <FaCalendarCheck className="privilege-icon" />
+              <i className="fa-solid fa-calendar-check privilege-icon"></i>
               <span>Check your attendance records and history</span>
             </div>
             <div className="privilege-item">
-              <FaBell className="privilege-icon" />
+              <i className="fa-solid fa-bell privilege-icon"></i>
               <span>View department updates and announcements</span>
             </div>
           </div>

@@ -53,7 +53,7 @@ const Navbar = () => {
     <nav style={styles.navbar} role="navigation" aria-label="Main navigation">
       <div style={styles.container}>
         <Link to="/dashboard" style={styles.logo} aria-label="Go to dashboard">
-          <span style={styles.logoIcon} aria-hidden>🏢</span>
+          <i className="fa-solid fa-building" style={styles.logoIcon} aria-hidden title="EMS"></i>
           <span style={{display: 'inline-block'}}>{'EMS Lite'}</span>
         </Link>
 
@@ -66,7 +66,9 @@ const Navbar = () => {
           style={{...styles.mobileToggle, display: isMobile ? 'inline-flex' : 'none'}}
           className="mobile-toggle"
         >
-          <span style={{fontSize: '1.25rem'}}>{showMobileMenu ? '✖' : '☰'}</span>
+          <span style={{fontSize: '1.25rem'}} aria-hidden>
+            {showMobileMenu ? <i className="fa-solid fa-xmark"></i> : <i className="fa-solid fa-bars"></i>}
+          </span>
         </button>
 
         <div
@@ -86,7 +88,7 @@ const Navbar = () => {
             }}
             className={isActive('/dashboard') ? 'nav-link active' : 'nav-link'}
           >
-            <span style={styles.navIcon} aria-hidden>📊</span>
+            <span style={styles.navIcon} aria-hidden><i className="fa-solid fa-chart-pie" title="Dashboard"></i></span>
             <span>Dashboard</span>
           </Link>
 
@@ -100,7 +102,7 @@ const Navbar = () => {
                 }}
                 className={isActive('/employees') ? 'nav-link active' : 'nav-link'}
               >
-                <span style={styles.navIcon} aria-hidden>👥</span>
+                <span style={styles.navIcon} aria-hidden><i className="fa-solid fa-users" title="Employees"></i></span>
                 <span>Employees</span>
               </Link>
               <Link
@@ -111,7 +113,7 @@ const Navbar = () => {
                 }}
                 className={isActive('/departments') ? 'nav-link active' : 'nav-link'}
               >
-                <span style={styles.navIcon} aria-hidden>🏢</span>
+                <span style={styles.navIcon} aria-hidden><i className="fa-solid fa-building" title="Departments"></i></span>
                 <span>Departments</span>
               </Link>
             </>
@@ -125,7 +127,7 @@ const Navbar = () => {
             }}
             className={isActive('/attendance') ? 'nav-link active' : 'nav-link'}
           >
-            <span style={styles.navIcon} aria-hidden>📅</span>
+            <span style={styles.navIcon} aria-hidden><i className="fa-solid fa-calendar-check" title="Attendance"></i></span>
             <span>Attendance</span>
           </Link>
         </div>
@@ -157,7 +159,7 @@ const Navbar = () => {
               </div>
               <div style={styles.menuDivider}></div>
               <button onClick={logout} style={styles.menuLogoutBtn} role="menuitem">
-                <span style={styles.logoutIcon} aria-hidden>🚪</span>
+                <span style={styles.logoutIcon} aria-hidden><i className="fa-solid fa-right-from-bracket" title="Logout"></i></span>
                 <span>Logout</span>
               </button>
             </div>
