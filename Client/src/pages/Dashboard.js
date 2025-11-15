@@ -147,7 +147,7 @@ const Dashboard = () => {
         <div className="header-content">
             <div className="welcome-section">
             <h1 className="welcome-title">
-              Welcome back, {user.name}! 👋
+              Welcome back, {user.name}
             </h1>
             <p className="welcome-subtitle">
               {currentTime.toLocaleDateString('en-US', {

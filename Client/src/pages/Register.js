@@ -46,7 +46,7 @@ const Register = () => {
       <div style={styles.circle2}></div>
       <div style={styles.circle3}></div>
       
-      <div style={styles.card}>
+      <div style={styles.card} className="auth-compact-card">
         {/* Gradient Top Bar */}
         <div style={styles.gradientBar}></div>
         
@@ -220,52 +220,55 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '20px',
+    padding: '14px',
     fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
     position: 'relative',
     overflow: 'hidden',
   },
   circle1: {
     position: 'absolute',
-    width: '400px',
-    height: '400px',
-    background: 'radial-gradient(circle, rgba(59,130,246,0.06) 0%, transparent 70%)',
+    width: '160px',
+    height: '160px',
+    background: 'radial-gradient(circle, rgba(59,130,246,0.035) 0%, transparent 70%)',
     borderRadius: '50%',
-    top: '10%',
-    left: '10%',
+    top: '4%',
+    left: '4%',
     animation: 'float 8s ease-in-out infinite, pulse 4s ease-in-out infinite alternate',
   },
   circle2: {
     position: 'absolute',
-    width: '300px',
-    height: '300px',
-    background: 'radial-gradient(circle, rgba(6,182,212,0.05) 0%, transparent 70%)',
+    width: '140px',
+    height: '140px',
+    background: 'radial-gradient(circle, rgba(6,182,212,0.03) 0%, transparent 70%)',
     borderRadius: '50%',
-    bottom: '15%',
-    right: '15%',
+    bottom: '10%',
+    right: '10%',
     animation: 'float 6s ease-in-out infinite reverse, pulse 3s ease-in-out infinite alternate',
   },
   circle3: {
     position: 'absolute',
-    width: '200px',
-    height: '200px',
-    background: 'radial-gradient(circle, rgba(16,185,129,0.04) 0%, transparent 70%)',
+    width: '120px',
+    height: '120px',
+    background: 'radial-gradient(circle, rgba(16,185,129,0.03) 0%, transparent 70%)',
     borderRadius: '50%',
-    top: '60%',
-    left: '70%',
+    top: '56%',
+    left: '64%',
     animation: 'float 7s ease-in-out infinite, pulse 5s ease-in-out infinite alternate',
   },
   card: {
     background: 'var(--glass-bg)',
-    backdropFilter: 'blur(16px)',
-    padding: '40px',
-    borderRadius: '24px',
-    boxShadow: 'var(--glass-shadow)',
-    width: '420px',
+    backdropFilter: 'blur(6px)',
+    padding: '12px',
+    borderRadius: '12px',
+    boxShadow: '0 5px 12px rgba(0,0,0,0.16)',
+    maxWidth: '420px',
+    width: '92vw',
+    maxHeight: 'none',
+    overflowY: 'visible',
     display: 'flex',
     flexDirection: 'column',
     position: 'relative',
-    overflow: 'hidden',
+    overflow: 'visible',
     animation: 'slideIn 0.6s ease-out',
   },
   gradientBar: {
@@ -278,7 +281,7 @@ const styles = {
   },
   header: {
     textAlign: 'center',
-    marginBottom: '32px',
+    marginBottom: '14px',
   },
   logo: {
     display: 'flex',
@@ -286,33 +289,33 @@ const styles = {
     marginBottom: '24px',
   },
   logoIcon: {
-    width: '64px',
-    height: '64px',
+    width: '40px',
+    height: '40px',
     background: 'var(--gradient-primary)',
-    borderRadius: '16px',
+    borderRadius: '10px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     color: 'white',
-    fontSize: '20px',
-    fontWeight: 'bold',
-    boxShadow: '0 8px 20px rgba(59,130,246,0.18)',
+    fontSize: '14px',
+    fontWeight: '700',
+    boxShadow: '0 5px 12px rgba(59,130,246,0.10)',
     transform: 'rotate(-5deg)',
     position: 'relative',
   },
   title: {
-    fontSize: '28px',
+    fontSize: '20px',
     fontWeight: '700',
     background: 'var(--gradient-primary)',
     backgroundClip: 'text',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
-    margin: '0 0 8px 0',
-    letterSpacing: '-0.8px',
+    margin: '0 0 4px 0',
+    letterSpacing: '-0.4px',
   },
   subtitle: {
-    fontSize: '15px',
-    color: 'var(--text-tertiary)',
+    fontSize: '12px',
+    color: 'var(--text-secondary)',
     margin: 0,
     fontWeight: '400',
   },
@@ -322,7 +325,7 @@ const styles = {
     flexDirection: 'column',
   },
   formGroup: {
-    marginBottom: '28px',
+    marginBottom: '10px',
     position: 'relative',
   },
   label: {
@@ -339,11 +342,11 @@ const styles = {
   },
   input: {
     width: '100%',
-    padding: '16px 18px',
+    padding: '8px 10px',
     border: '1px solid var(--border-medium)',
-    borderRadius: '12px',
-    fontSize: '15px',
-    transition: 'all 0.3s ease',
+    borderRadius: '8px',
+    fontSize: '13px',
+    transition: 'all 0.2s ease',
     backgroundColor: 'var(--bg-surface)',
     color: 'var(--text-primary)',
     boxSizing: 'border-box',
@@ -352,19 +355,19 @@ const styles = {
   inputFocus: {
     borderColor: 'var(--primary-color)',
     backgroundColor: 'var(--bg-surface)',
-    boxShadow: '0 6px 20px rgba(59,130,246,0.08)',
+    boxShadow: '0 4px 12px rgba(59,130,246,0.06)',
     outline: 'none',
-    transform: 'translateY(-1px)',
+    transform: 'translateY(-0.5px)',
   },
   selectContainer: {
     position: 'relative',
   },
   select: {
     width: '100%',
-    padding: '16px 18px',
+    padding: '8px 10px',
     border: '1px solid var(--border-medium)',
-    borderRadius: '12px',
-    fontSize: '15px',
+    borderRadius: '8px',
+    fontSize: '13px',
     transition: 'all 0.3s ease',
     backgroundColor: 'var(--bg-surface)',
     boxSizing: 'border-box',
@@ -396,18 +399,18 @@ const styles = {
   },
   button: {
     width: '100%',
-    padding: '16px',
+    padding: '10px',
     background: 'var(--gradient-primary)',
     color: 'white',
     border: 'none',
-    borderRadius: '12px',
-    fontSize: '16px',
+    borderRadius: '10px',
+    fontSize: '14px',
     fontWeight: '700',
     cursor: 'pointer',
-    transition: 'all 0.3s ease',
+    transition: 'all 0.22s ease',
     marginTop: 'auto',
-    boxShadow: '0 10px 30px rgba(59,130,246,0.12)',
-    letterSpacing: '0.3px',
+    boxShadow: '0 6px 16px rgba(59,130,246,0.10)',
+    letterSpacing: '0.2px',
   },
   buttonDisabled: {
     opacity: 0.7,
@@ -450,9 +453,9 @@ const styles = {
   },
   footer: {
     textAlign: 'center',
-    marginTop: '24px',
-    paddingTop: '24px',
-    borderTop: '1px solid var(--border-light)',
+    marginTop: '10px',
+    paddingTop: '10px',
+    borderTop: '1px solid rgba(255,255,255,0.04)',
   },
   divider: {
     position: 'relative',
@@ -488,12 +491,12 @@ styleElement.textContent = `
   
   @keyframes float {
     0%, 100% { transform: translateY(0) scale(1); }
-    50% { transform: translateY(-20px) scale(1.05); }
+    50% { transform: translateY(-10px) scale(1.02); }
   }
   
   @keyframes pulse {
-    0% { opacity: 0.4; }
-    100% { opacity: 0.8; }
+    0% { opacity: 0.45; }
+    100% { opacity: 0.75; }
   }
   
   @keyframes slideIn {
@@ -508,17 +511,27 @@ styleElement.textContent = `
   }
   
   button:hover:not(:disabled) .buttonArrow {
-    transform: translateX(3px);
+    transform: translateX(2px);
   }
-  
+
   button:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 30px rgba(59,130,246,0.12);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(59,130,246,0.10);
   }
-  
+
   input:focus, select:focus {
     outline: none;
-    box-shadow: 0 6px 20px rgba(59,130,246,0.06);
+    box-shadow: 0 4px 12px rgba(59,130,246,0.06);
+  }
+
+  input:focus-visible, select:focus-visible {
+    outline: 3px solid rgba(99,102,241,0.12);
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 480px) {
+    .auth-compact-card { width: 96vw !important; padding: 10px !important; }
+    .auth-compact-card input, .auth-compact-card select { padding: 8px !important; font-size: 13px !important; }
   }
 `;
 document.head.appendChild(styleElement);

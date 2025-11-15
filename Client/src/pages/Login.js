@@ -44,7 +44,7 @@ const Login = () => {
       <div style={styles.circle2} className="scale-in"></div>
       <div style={styles.circle3} className="scale-in"></div>
       
-      <div style={styles.card} className="slide-up">
+      <div style={styles.card} className="slide-up auth-compact-card">
         {/* Gradient Top Bar */}
         <div style={styles.gradientBar}></div>
         
