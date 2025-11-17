@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBuilding, faChartLine, faUsers, faCalendarCheck, faBars, faTimes, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -53,7 +55,9 @@ const Navbar = () => {
     <nav style={styles.navbar} role="navigation" aria-label="Main navigation">
       <div style={styles.container}>
         <Link to="/dashboard" style={styles.logo} aria-label="Go to dashboard">
-          <span style={styles.logoIcon} aria-hidden>🏢</span>
+          <span style={styles.logoIcon} aria-hidden>
+            <FontAwesomeIcon icon={faBuilding} />
+          </span>
           <span style={{display: 'inline-block'}}>{'EMS Lite'}</span>
         </Link>
 
@@ -66,7 +70,9 @@ const Navbar = () => {
           style={{...styles.mobileToggle, display: isMobile ? 'inline-flex' : 'none'}}
           className="mobile-toggle"
         >
-          <span style={{fontSize: '1.25rem'}}>{showMobileMenu ? '✖' : '☰'}</span>
+          <span style={{fontSize: '1.25rem'}} aria-hidden>
+            <FontAwesomeIcon icon={showMobileMenu ? faTimes : faBars} />
+          </span>
         </button>
 
         <div
@@ -86,7 +92,9 @@ const Navbar = () => {
             }}
             className={isActive('/dashboard') ? 'nav-link active' : 'nav-link'}
           >
-            <span style={styles.navIcon} aria-hidden>📊</span>
+            <span style={styles.navIcon} aria-hidden>
+              <FontAwesomeIcon icon={faChartLine} />
+            </span>
             <span>Dashboard</span>
           </Link>
 
@@ -100,7 +108,9 @@ const Navbar = () => {
                 }}
                 className={isActive('/employees') ? 'nav-link active' : 'nav-link'}
               >
-                <span style={styles.navIcon} aria-hidden>👥</span>
+                <span style={styles.navIcon} aria-hidden>
+                  <FontAwesomeIcon icon={faUsers} />
+                </span>
                 <span>Employees</span>
               </Link>
               <Link
@@ -111,7 +121,9 @@ const Navbar = () => {
                 }}
                 className={isActive('/departments') ? 'nav-link active' : 'nav-link'}
               >
-                <span style={styles.navIcon} aria-hidden>🏢</span>
+                <span style={styles.navIcon} aria-hidden>
+                  <FontAwesomeIcon icon={faBuilding} />
+                </span>
                 <span>Departments</span>
               </Link>
             </>
@@ -125,13 +137,15 @@ const Navbar = () => {
             }}
             className={isActive('/attendance') ? 'nav-link active' : 'nav-link'}
           >
-            <span style={styles.navIcon} aria-hidden>📅</span>
+            <span style={styles.navIcon} aria-hidden>
+              <FontAwesomeIcon icon={faCalendarCheck} />
+            </span>
             <span>Attendance</span>
           </Link>
         </div>
 
         <div style={styles.userSection} ref={profileMenuRef}>
-          <button
+            <button
             onClick={() => setShowProfileMenu((s) => !s)}
             style={styles.profileBtn}
             aria-haspopup="true"
@@ -157,7 +171,9 @@ const Navbar = () => {
               </div>
               <div style={styles.menuDivider}></div>
               <button onClick={logout} style={styles.menuLogoutBtn} role="menuitem">
-                <span style={styles.logoutIcon} aria-hidden>🚪</span>
+                <span style={styles.logoutIcon} aria-hidden>
+                  <FontAwesomeIcon icon={faRightFromBracket} />
+                </span>
                 <span>Logout</span>
               </button>
             </div>

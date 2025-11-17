@@ -4,22 +4,23 @@ import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
 import AdminOnly from '../components/AdminOnly';
 import '../components/dashboard.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  FaUsers,
-  FaBuilding,
-  FaCalendarCheck,
-  FaUserCheck,
-  FaPlus,
-  FaEye,
-  FaCog,
-  FaBell,
-  FaClock,
-  FaCheckCircle,
-  FaExclamationTriangle,
-  FaChartLine,
-  FaUserPlus,
-  FaCalendarAlt
-} from 'react-icons/fa';
+  faUsers,
+  faBuilding,
+  faCalendarCheck,
+  faUserCheck,
+  faPlus,
+  faEye,
+  faCog,
+  faBell,
+  faClock,
+  faCheckCircle,
+  faExclamationTriangle,
+  faChartLine,
+  faUserPlus,
+  faCalendarAlt
+} from '@fortawesome/free-solid-svg-icons';
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -128,30 +129,30 @@ const Dashboard = () => {
 
   const quickActions = [
     {
-      icon: <FaUserPlus />,
+      icon: <FontAwesomeIcon icon={faUserPlus} />,
       title: 'Add Employee',
-      description: 'Register new team member',
+      description: 'Quickly register a new team member — name, role, and department.',
       color: 'var(--gradient-primary)',
       action: () => navigate('/employees', { state: { openAdd: true } })
     },
     {
-      icon: <FaCalendarAlt />,
+      icon: <FontAwesomeIcon icon={faCalendarAlt} />,
       title: 'Mark Attendance',
-      description: 'Record daily attendance',
+      description: 'Tap here to mark your check-in/check-out for the day.',
       color: 'var(--gradient-secondary)',
       action: () => navigate('/attendance')
     },
     {
-      icon: <FaEye />,
+      icon: <FontAwesomeIcon icon={faEye} />,
       title: 'View Reports',
-      description: 'Check analytics & insights',
+      description: 'Open simple, honest reports — no fluff, just the numbers.',
       color: 'linear-gradient(135deg, #ff6b6b, #ee5a24)',
       action: () => console.log('View Reports')
     },
     {
-      icon: <FaCog />,
+      icon: <FontAwesomeIcon icon={faCog} />,
       title: 'Settings',
-      description: 'Configure preferences',
+      description: 'Adjust notifications, appearance, and account preferences.',
       color: 'linear-gradient(135deg, #a8edea, #fed6e3)',
       action: () => console.log('Settings')
     }
@@ -159,21 +160,21 @@ const Dashboard = () => {
 
   const recentActivities = [
     {
-      icon: <FaCheckCircle />,
+      icon: <FontAwesomeIcon icon={faCheckCircle} />,
       title: 'Attendance marked',
       description: 'John Doe checked in at 9:00 AM',
       time: '2 hours ago',
       type: 'success'
     },
     {
-      icon: <FaUserPlus />,
+      icon: <FontAwesomeIcon icon={faUserPlus} />,
       title: 'New employee added',
       description: 'Sarah Wilson joined Marketing department',
       time: '4 hours ago',
       type: 'info'
     },
     {
-      icon: <FaExclamationTriangle />,
+      icon: <FontAwesomeIcon icon={faExclamationTriangle} />,
       title: 'System maintenance',
       description: 'Scheduled maintenance completed successfully',
       time: '1 day ago',
@@ -187,27 +188,58 @@ const Dashboard = () => {
       <div className="dashboard-header">
         <div className="header-content">
           <div className="welcome-section">
-            <h1 className="welcome-title">
-              Welcome back, {user.name}
-            </h1>
-            <p className="welcome-subtitle">
-              {currentTime.toLocaleDateString('en-US', {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-              })}
-            </p>
+            <div className="welcome-bubble">
+              <h1 className="welcome-title">
+                Hey {user.name} — nice to see you 
+              </h1>
+              <p className="welcome-subtitle">
+                {currentTime.toLocaleDateString('en-US', {
+                  weekday: 'long',
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
+                })} • {currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+              </p>
+              <p className="welcome-note">A compact view of what matters today — action items and quick insights.</p>
+            </div>
+            <svg className="decorative-blob" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+              <path fill="rgba(108,92,231,0.08)" d="M40.5,-60.4C52.1,-52.4,60.9,-41.1,66.8,-27.1C72.7,-13,75.7,2.8,72.7,17.6C69.8,32.4,60.9,46.1,48.1,52.3C35.3,58.6,18.6,57.3,3.4,53.3C-11.8,49.3,-23.6,42.6,-35.8,34.9C-48,27.3,-60.6,18.7,-66.4,6.9C-72.3,-4.8,-71.5,-19.9,-63.7,-31.1C-55.9,-42.3,-41.2,-49.6,-26,-57.8C-10.9,-66,4.9,-75.1,18.5,-73.2C32.1,-71.3,52.8,-68.3,40.5,-60.4Z" transform="translate(100 100)"/>
+            </svg>
           </div>
           {/* header actions removed: notifications and avatar intentionally hidden */}
         </div>
       </div>
 
       {/* Stats Grid */}
+      {/* Attendance progress — small handcrafted metric */}
+      <div className="attendance-progress">
+        <div className="progress-info">
+          <strong>Office Presence</strong>
+          <span className="progress-sub">Live snapshot of today's presence</span>
+        </div>
+        <div className="progress-container">
+          {totalEmployees && totalAttendance !== null ? (
+            (() => {
+              const percent = Math.round((totalAttendance / Math.max(1, totalEmployees)) * 100);
+              return (
+                <>
+                  <div className="progress-bar" aria-hidden>
+                    <div className="progress-fill" style={{ width: `${percent}%` }}></div>
+                  </div>
+                  <div className="progress-text">{percent}% present ({totalAttendance}/{totalEmployees})</div>
+                </>
+              );
+            })()
+          ) : (
+            <div className="progress-bar empty">— no live data</div>
+          )}
+        </div>
+      </div>
+
       <div className="dashboard-grid">
         <div className="stat-card">
           <div className="stat-icon">
-            <FaUsers />
+            <FontAwesomeIcon icon={faUsers} />
           </div>
           <div className="stat-title">Total Employees</div>
           <div className="stat-value">{totalEmployees !== null ? totalEmployees : '-'}</div>
@@ -218,7 +250,7 @@ const Dashboard = () => {
 
         <div className="stat-card">
           <div className="stat-icon">
-            <FaBuilding />
+            <FontAwesomeIcon icon={faBuilding} />
           </div>
           <div className="stat-title">Departments</div>
           <div className="stat-value">0</div>
@@ -229,7 +261,7 @@ const Dashboard = () => {
 
         <div className="stat-card">
           <div className="stat-icon">
-            <FaCalendarCheck />
+            <FontAwesomeIcon icon={faCalendarCheck} />
           </div>
           <div className="stat-title">Today's Attendance</div>
           <div className="stat-value">{totalAttendance !== null ? totalAttendance : '-'}</div>
@@ -240,7 +272,7 @@ const Dashboard = () => {
 
         <div className="stat-card">
           <div className="stat-icon">
-            <FaUserCheck />
+            <FontAwesomeIcon icon={faUserCheck} />
           </div>
           <div className="stat-title">Your Role</div>
           <div className="stat-value">{user.role}</div>
@@ -272,7 +304,7 @@ const Dashboard = () => {
                   <p className="action-description">{action.description}</p>
                 </div>
                 <div className="action-arrow">
-                  <FaPlus />
+                  <FontAwesomeIcon icon={faPlus} />
                 </div>
               </button>
             );
@@ -296,7 +328,7 @@ const Dashboard = () => {
             <h3 className="chart-title">Profile Information</h3>
             <AdminOnly>
               <button className="edit-btn">
-                <FaCog /> Edit
+                <FontAwesomeIcon icon={faCog} /> Edit
               </button>
             </AdminOnly>
           </div>
@@ -337,7 +369,7 @@ const Dashboard = () => {
           <div className="card-header">
             <h3 className="chart-title">Recent Activities</h3>
             <button className="view-all-btn">
-              <FaEye /> View All
+              <FontAwesomeIcon icon={faEye} /> View All
             </button>
           </div>
           <div className="activities-list">
@@ -350,7 +382,7 @@ const Dashboard = () => {
                   <h4 className="activity-title">{activity.title}</h4>
                   <p className="activity-description">{activity.description}</p>
                   <span className="activity-time">
-                    <FaClock /> {activity.time}
+                    <FontAwesomeIcon icon={faClock} /> {activity.time}
                   </span>
                 </div>
               </div>
@@ -365,19 +397,19 @@ const Dashboard = () => {
           <h3 className="chart-title">Admin Privileges</h3>
           <div className="privileges-grid">
             <div className="privilege-item">
-              <FaUsers className="privilege-icon" />
+              <FontAwesomeIcon icon={faUsers} className="privilege-icon" />
               <span>Manage all employees and their records</span>
             </div>
             <div className="privilege-item">
-              <FaBuilding className="privilege-icon" />
+              <FontAwesomeIcon icon={faBuilding} className="privilege-icon" />
               <span>Create and manage departments</span>
             </div>
             <div className="privilege-item">
-              <FaChartLine className="privilege-icon" />
+              <FontAwesomeIcon icon={faChartLine} className="privilege-icon" />
               <span>View and manage attendance reports</span>
             </div>
             <div className="privilege-item">
-              <FaCog className="privilege-icon" />
+              <FontAwesomeIcon icon={faCog} className="privilege-icon" />
               <span>Configure system settings and permissions</span>
             </div>
           </div>
@@ -389,15 +421,15 @@ const Dashboard = () => {
           <h3 className="chart-title">Employee Dashboard</h3>
           <div className="privileges-grid">
             <div className="privilege-item">
-              <FaUserCheck className="privilege-icon" />
+              <FontAwesomeIcon icon={faUserCheck} className="privilege-icon" />
               <span>View and update your personal information</span>
             </div>
             <div className="privilege-item">
-              <FaCalendarCheck className="privilege-icon" />
+              <FontAwesomeIcon icon={faCalendarCheck} className="privilege-icon" />
               <span>Check your attendance records and history</span>
             </div>
             <div className="privilege-item">
-              <FaBell className="privilege-icon" />
+              <FontAwesomeIcon icon={faBell} className="privilege-icon" />
               <span>View department updates and announcements</span>
             </div>
           </div>
