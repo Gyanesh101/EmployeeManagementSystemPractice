@@ -130,28 +130,28 @@ const Dashboard = () => {
     {
       icon: <FaUserPlus />,
       title: 'Add Employee',
-      description: 'Register new team member',
+      description: 'Quickly register a new team member — name, role, and department.',
       color: 'var(--gradient-primary)',
       action: () => navigate('/employees', { state: { openAdd: true } })
     },
     {
       icon: <FaCalendarAlt />,
       title: 'Mark Attendance',
-      description: 'Record daily attendance',
+      description: 'Tap here to mark your check-in/check-out for the day.',
       color: 'var(--gradient-secondary)',
       action: () => navigate('/attendance')
     },
     {
       icon: <FaEye />,
       title: 'View Reports',
-      description: 'Check analytics & insights',
+      description: 'Open simple, honest reports — no fluff, just the numbers.',
       color: 'linear-gradient(135deg, #ff6b6b, #ee5a24)',
       action: () => console.log('View Reports')
     },
     {
       icon: <FaCog />,
       title: 'Settings',
-      description: 'Configure preferences',
+      description: 'Adjust notifications, appearance, and account preferences.',
       color: 'linear-gradient(135deg, #a8edea, #fed6e3)',
       action: () => console.log('Settings')
     }
@@ -187,23 +187,54 @@ const Dashboard = () => {
       <div className="dashboard-header">
         <div className="header-content">
           <div className="welcome-section">
-            <h1 className="welcome-title">
-              Welcome back, {user.name}
-            </h1>
-            <p className="welcome-subtitle">
-              {currentTime.toLocaleDateString('en-US', {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-              })}
-            </p>
+            <div className="welcome-bubble">
+              <h1 className="welcome-title">
+                Hey {user.name} — nice to see you 👋
+              </h1>
+              <p className="welcome-subtitle">
+                {currentTime.toLocaleDateString('en-US', {
+                  weekday: 'long',
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
+                })} • {currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+              </p>
+              <p className="welcome-note">A compact view of what matters today — action items and quick insights.</p>
+            </div>
+            <svg className="decorative-blob" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+              <path fill="rgba(108,92,231,0.08)" d="M40.5,-60.4C52.1,-52.4,60.9,-41.1,66.8,-27.1C72.7,-13,75.7,2.8,72.7,17.6C69.8,32.4,60.9,46.1,48.1,52.3C35.3,58.6,18.6,57.3,3.4,53.3C-11.8,49.3,-23.6,42.6,-35.8,34.9C-48,27.3,-60.6,18.7,-66.4,6.9C-72.3,-4.8,-71.5,-19.9,-63.7,-31.1C-55.9,-42.3,-41.2,-49.6,-26,-57.8C-10.9,-66,4.9,-75.1,18.5,-73.2C32.1,-71.3,52.8,-68.3,40.5,-60.4Z" transform="translate(100 100)"/>
+            </svg>
           </div>
           {/* header actions removed: notifications and avatar intentionally hidden */}
         </div>
       </div>
 
       {/* Stats Grid */}
+      {/* Attendance progress — small handcrafted metric */}
+      <div className="attendance-progress">
+        <div className="progress-info">
+          <strong>Office Presence</strong>
+          <span className="progress-sub">Live snapshot of today's presence</span>
+        </div>
+        <div className="progress-container">
+          {totalEmployees && totalAttendance !== null ? (
+            (() => {
+              const percent = Math.round((totalAttendance / Math.max(1, totalEmployees)) * 100);
+              return (
+                <>
+                  <div className="progress-bar" aria-hidden>
+                    <div className="progress-fill" style={{ width: `${percent}%` }}></div>
+                  </div>
+                  <div className="progress-text">{percent}% present ({totalAttendance}/{totalEmployees})</div>
+                </>
+              );
+            })()
+          ) : (
+            <div className="progress-bar empty">— no live data</div>
+          )}
+        </div>
+      </div>
+
       <div className="dashboard-grid">
         <div className="stat-card">
           <div className="stat-icon">
