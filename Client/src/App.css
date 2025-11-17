@@ -8,13 +8,13 @@
 
 :root {
   /* Enhanced Black Theme Color Palette */
-  --primary-color: #3b82f6;
-  --primary-hover: #2563eb;
-  --primary-light: #60a5fa;
+  --primary-color: #7c3aed;
+  --primary-hover: #6d28d9;
+  --primary-light: #9f7aea;
   --secondary-color: #06b6d4;
   --secondary-hover: #0891b2;
-  --accent-color: #10b981;
-  --accent-hover: #059669;
+  --accent-color: #ff6b6b;
+  --accent-hover: #ff5252;
 
   /* Background System - Pure Black Theme */
   --bg-primary: #000000;
@@ -50,11 +50,11 @@
   --info: #3b82f6;
   --info-bg: rgba(59, 130, 246, 0.12);
 
-  /* Gradients - Blue/Cyan Focus */
+  /* Gradients - Purple → Cyan with warm accent */
   --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   --gradient-secondary: linear-gradient(135deg, var(--accent-color), var(--primary-color));
   --gradient-surface: linear-gradient(135deg, var(--bg-surface), var(--bg-elevated));
-  --gradient-accent: linear-gradient(135deg, #3b82f6, #06b6d4, #10b981);
+  --gradient-accent: linear-gradient(135deg, #7c3aed, #06b6d4, #ff6b6b);
 
   /* Action Colors - For Interactive Elements */
   --action-color: rgba(59, 130, 246, 0.1);

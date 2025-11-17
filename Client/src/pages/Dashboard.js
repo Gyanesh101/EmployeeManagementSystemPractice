@@ -4,22 +4,23 @@ import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
 import AdminOnly from '../components/AdminOnly';
 import '../components/dashboard.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  FaUsers,
-  FaBuilding,
-  FaCalendarCheck,
-  FaUserCheck,
-  FaPlus,
-  FaEye,
-  FaCog,
-  FaBell,
-  FaClock,
-  FaCheckCircle,
-  FaExclamationTriangle,
-  FaChartLine,
-  FaUserPlus,
-  FaCalendarAlt
-} from 'react-icons/fa';
+  faUsers,
+  faBuilding,
+  faCalendarCheck,
+  faUserCheck,
+  faPlus,
+  faEye,
+  faCog,
+  faBell,
+  faClock,
+  faCheckCircle,
+  faExclamationTriangle,
+  faChartLine,
+  faUserPlus,
+  faCalendarAlt
+} from '@fortawesome/free-solid-svg-icons';
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -128,28 +129,28 @@ const Dashboard = () => {
 
   const quickActions = [
     {
-      icon: <FaUserPlus />,
+      icon: <FontAwesomeIcon icon={faUserPlus} />,
       title: 'Add Employee',
       description: 'Quickly register a new team member — name, role, and department.',
       color: 'var(--gradient-primary)',
       action: () => navigate('/employees', { state: { openAdd: true } })
     },
     {
-      icon: <FaCalendarAlt />,
+      icon: <FontAwesomeIcon icon={faCalendarAlt} />,
       title: 'Mark Attendance',
       description: 'Tap here to mark your check-in/check-out for the day.',
       color: 'var(--gradient-secondary)',
       action: () => navigate('/attendance')
     },
     {
-      icon: <FaEye />,
+      icon: <FontAwesomeIcon icon={faEye} />,
       title: 'View Reports',
       description: 'Open simple, honest reports — no fluff, just the numbers.',
       color: 'linear-gradient(135deg, #ff6b6b, #ee5a24)',
       action: () => console.log('View Reports')
     },
     {
-      icon: <FaCog />,
+      icon: <FontAwesomeIcon icon={faCog} />,
       title: 'Settings',
       description: 'Adjust notifications, appearance, and account preferences.',
       color: 'linear-gradient(135deg, #a8edea, #fed6e3)',
@@ -159,21 +160,21 @@ const Dashboard = () => {
 
   const recentActivities = [
     {
-      icon: <FaCheckCircle />,
+      icon: <FontAwesomeIcon icon={faCheckCircle} />,
       title: 'Attendance marked',
       description: 'John Doe checked in at 9:00 AM',
       time: '2 hours ago',
       type: 'success'
     },
     {
-      icon: <FaUserPlus />,
+      icon: <FontAwesomeIcon icon={faUserPlus} />,
       title: 'New employee added',
       description: 'Sarah Wilson joined Marketing department',
       time: '4 hours ago',
       type: 'info'
     },
     {
-      icon: <FaExclamationTriangle />,
+      icon: <FontAwesomeIcon icon={faExclamationTriangle} />,
       title: 'System maintenance',
       description: 'Scheduled maintenance completed successfully',
       time: '1 day ago',
@@ -189,7 +190,7 @@ const Dashboard = () => {
           <div className="welcome-section">
             <div className="welcome-bubble">
               <h1 className="welcome-title">
-                Hey {user.name} — nice to see you 👋
+                Hey {user.name} — nice to see you 
               </h1>
               <p className="welcome-subtitle">
                 {currentTime.toLocaleDateString('en-US', {
@@ -238,7 +239,7 @@ const Dashboard = () => {
       <div className="dashboard-grid">
         <div className="stat-card">
           <div className="stat-icon">
-            <FaUsers />
+            <FontAwesomeIcon icon={faUsers} />
           </div>
           <div className="stat-title">Total Employees</div>
           <div className="stat-value">{totalEmployees !== null ? totalEmployees : '-'}</div>
@@ -249,7 +250,7 @@ const Dashboard = () => {
 
         <div className="stat-card">
           <div className="stat-icon">
-            <FaBuilding />
+            <FontAwesomeIcon icon={faBuilding} />
           </div>
           <div className="stat-title">Departments</div>
           <div className="stat-value">0</div>
@@ -260,7 +261,7 @@ const Dashboard = () => {
 
         <div className="stat-card">
           <div className="stat-icon">
-            <FaCalendarCheck />
+            <FontAwesomeIcon icon={faCalendarCheck} />
           </div>
           <div className="stat-title">Today's Attendance</div>
           <div className="stat-value">{totalAttendance !== null ? totalAttendance : '-'}</div>
@@ -271,7 +272,7 @@ const Dashboard = () => {
 
         <div className="stat-card">
           <div className="stat-icon">
-            <FaUserCheck />
+            <FontAwesomeIcon icon={faUserCheck} />
           </div>
           <div className="stat-title">Your Role</div>
           <div className="stat-value">{user.role}</div>
@@ -303,7 +304,7 @@ const Dashboard = () => {
                   <p className="action-description">{action.description}</p>
                 </div>
                 <div className="action-arrow">
-                  <FaPlus />
+                  <FontAwesomeIcon icon={faPlus} />
                 </div>
               </button>
             );
@@ -327,7 +328,7 @@ const Dashboard = () => {
             <h3 className="chart-title">Profile Information</h3>
             <AdminOnly>
               <button className="edit-btn">
-                <FaCog /> Edit
+                <FontAwesomeIcon icon={faCog} /> Edit
               </button>
             </AdminOnly>
           </div>
@@ -368,7 +369,7 @@ const Dashboard = () => {
           <div className="card-header">
             <h3 className="chart-title">Recent Activities</h3>
             <button className="view-all-btn">
-              <FaEye /> View All
+              <FontAwesomeIcon icon={faEye} /> View All
             </button>
           </div>
           <div className="activities-list">
@@ -381,7 +382,7 @@ const Dashboard = () => {
                   <h4 className="activity-title">{activity.title}</h4>
                   <p className="activity-description">{activity.description}</p>
                   <span className="activity-time">
-                    <FaClock /> {activity.time}
+                    <FontAwesomeIcon icon={faClock} /> {activity.time}
                   </span>
                 </div>
               </div>
@@ -396,19 +397,19 @@ const Dashboard = () => {
           <h3 className="chart-title">Admin Privileges</h3>
           <div className="privileges-grid">
             <div className="privilege-item">
-              <FaUsers className="privilege-icon" />
+              <FontAwesomeIcon icon={faUsers} className="privilege-icon" />
               <span>Manage all employees and their records</span>
             </div>
             <div className="privilege-item">
-              <FaBuilding className="privilege-icon" />
+              <FontAwesomeIcon icon={faBuilding} className="privilege-icon" />
               <span>Create and manage departments</span>
             </div>
             <div className="privilege-item">
-              <FaChartLine className="privilege-icon" />
+              <FontAwesomeIcon icon={faChartLine} className="privilege-icon" />
               <span>View and manage attendance reports</span>
             </div>
             <div className="privilege-item">
-              <FaCog className="privilege-icon" />
+              <FontAwesomeIcon icon={faCog} className="privilege-icon" />
               <span>Configure system settings and permissions</span>
             </div>
           </div>
@@ -420,15 +421,15 @@ const Dashboard = () => {
           <h3 className="chart-title">Employee Dashboard</h3>
           <div className="privileges-grid">
             <div className="privilege-item">
-              <FaUserCheck className="privilege-icon" />
+              <FontAwesomeIcon icon={faUserCheck} className="privilege-icon" />
               <span>View and update your personal information</span>
             </div>
             <div className="privilege-item">
-              <FaCalendarCheck className="privilege-icon" />
+              <FontAwesomeIcon icon={faCalendarCheck} className="privilege-icon" />
               <span>Check your attendance records and history</span>
             </div>
             <div className="privilege-item">
-              <FaBell className="privilege-icon" />
+              <FontAwesomeIcon icon={faBell} className="privilege-icon" />
               <span>View department updates and announcements</span>
             </div>
           </div>
